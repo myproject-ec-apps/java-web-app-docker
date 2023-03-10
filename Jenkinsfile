@@ -10,11 +10,12 @@ node{
    }
 
    stage('code quality scan'){
-        withSonarQubeEnv(credentialsId: 'sonar') 
+        withSonarQubeEnv(credentialsId: 'sonar') {
         def mavenHome = tool name: "maven", type:"maven"
         def mavenCMD = "${mavenHome}/bin/mvn"
         sh "${mavenCMD} sonar:sonar"
         }
+    }
 
 
 }
