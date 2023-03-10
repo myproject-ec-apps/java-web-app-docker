@@ -6,9 +6,16 @@ node{
 
    stage('build the code'){
      def mavenHome= tool name: "maven",type: "maven"
-     sh "${mavenHome}/bin/mvn clean package"
-     
+      sh "${mavenHome}/bin/mvn clean package"
    }
+
+   stage('code quality scan'){
+        withSonarQubeEnv(credentialsId: 'sonar') 
+        def mavenHome = tool name: "maven", type:"maven"
+        def mavenCMD = "${mavenHome}/bin/mvn"
+        sh "${mavenCMD} sonar:sonar"
+        }
+
 
 }
 
